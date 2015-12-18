@@ -11,6 +11,7 @@
             <tr ng:repeat="player in players | orderBy: player.placing" data-id="{{player._id}}">
                 <td>{{player.placing}}</td>
                 <td>{{player.username}}</td>
+                <td>{{player.points}}</td>
             </tr>
             </tbody>
         </table>

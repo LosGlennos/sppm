@@ -9,8 +9,9 @@
                     var returnedUser = {
                         _id: user._id,
                         username: user.username,
-                        placing: user.placing
-                    }
+                        placing: user.placing,
+                        points: user.points
+                }
                     userMap[user._id] = returnedUser;
                 });
 
