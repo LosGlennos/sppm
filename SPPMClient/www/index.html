@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no"/>
+        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/custom.css"/>
+        <link rel="stylesheet" href="css/font-awesome/font-awesome.min.css"/>
+        <title>Spinit Ping Pong Mania</title>
+    </head>
+    <body ng-app="spinitPingPongMania" ng-controller="IndexCtrl">
+        <div class="header">
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#js-navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="js-navbar-collapse">
+
+                        <ul class="nav navbar-nav">
+                            <li ng-click="selectClicked(1)" ng-class="{active: selected == 1}"><a href="#/mainmenu">Meny</a></li>
+                            <li ng-click="selectClicked(2)" ng-class="{active: selected == 2}"><a ng-href="#/newgame">Nytt spel</a></li>
+                            <li ng-click="selectClicked(3)" ng-class="{active: selected == 3}"><a ng-href="#/standings">St&aumlllning</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div ng-view=""></div>
+        </div>
+
+        <script type="text/javascript" src="js/lib/jquery/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="js/lib/bootstrap/bootstrap.min.js"></script>
+        <!--<script type="text/javascript" src="cordova.js"></script>-->
+        <script type="text/javascript" src="js/cordovaInit.js"></script>
+        <script type="text/javascript" src="js/lib/angular/angular.min.js"></script>
+        <script type="text/javascript" src="js/lib/angular/angular-route.min.js"></script>
+        <script type="text/javascript" src="js/lib/angular/angular-cookies.min.js"></script>
+
+        <script type="text/javascript" src="js/app.js"></script>
+
+        <!-- Controllers -->
+        <script type="text/javascript" src="js/Start/StartCtrl.js"></script>
+        <script type="text/javascript" src="js/Login/LoginCtrl.js"></script>
+        <script type="text/javascript" src="js/CreateAccount/CreateAccountCtrl.js"></script>
+        <script type="text/javascript" src="js/MainMenu/MainMenuCtrl.js"></script>
+        <script type="text/javascript" src="js/NewGame/NewGameCtrl.js"></script>
+        <script type="text/javascript" src="js/KnockoutSelect/KnockoutSelectCtrl.js"></script>
+        <script type="text/javascript" src="js/Standings/StandingsCtrl.js"></script>
+        <script type="text/javascript" src="js/SingleSelect/SingleSelectCtrl.js"></script>
+        <script type="text/javascript" src="js/SingleMatch/SingleMatchCtrl.js"></script>
+        <script type="text/javascript" src="js/Index/IndexCtrl.js"></script>
+        <script type="text/javascript" src="js/Logout/LogoutCtrl.js"></script>
+
+        <!-- Services -->
+        <script type="text/javascript" src="js/HttpService.js"></script>
+        <script type="text/javascript" src="js/GeneralServices/GeneralServices.js"></script>
+        <script type="text/javascript" src="js/CreateAccount/CreateAccountService.js"></script>
+        <script type="text/javascript" src="js/Login/LoginService.js"></script>
+        <script type="text/javascript" src="js/KnockoutSelect/KnockoutSelectService.js"></script>
+        <script type="text/javascript" src="js/SingleMatch/SingleMatchService.js"></script>
+        <script type="text/javascript" src="js/Logout/LogoutService.js"></script>
+
+        <!-- Server configuration -->
+        <script type="text/javascript" src="config.js"></script>
+
+    </body>
+</html>

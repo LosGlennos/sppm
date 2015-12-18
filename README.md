@@ -1,2 +1,2 @@
-# sppm
-Happy Friday
+# SpinitPingPongMania
+Happy Friday!

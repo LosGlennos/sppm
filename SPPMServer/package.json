@@ -1,0 +1,16 @@
+{
+  "name": "sppmserver",
+  "version": "1.0.0",
+  "description": "Backend solution for Spinit Ping Pong Mania",
+  "main": "sppmserver.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3",
+	  "body-parser" : "^1.14.1",
+  	"mongoose" : "^4.3.0",
+  }
+}

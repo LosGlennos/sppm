@@ -1,0 +1,18 @@
+﻿<div>
+    <div class="" ng-model="standingsList">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Placering</th>
+                <th>Spelare</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng:repeat="player in players | orderBy: player.placing" data-id="{{player._id}}">
+                <td>{{player.placing}}</td>
+                <td>{{player.username}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+﻿<div ng-controller="LoginCtrl">
+    <div class="jumbotron pingpong-menu">
+        <p>Logga in</p>
+        <form class="form-group">
+                <input ng-keyup="$event.keyCode == 13 ? submitLogin() : return" ng-model="formData.username" name="username" type="text" class="form-control input-menu" placeholder="Användarnamn"/>
+                <input ng-keyup="$event.keyCode == 13 ? submitLogin() : return" ng-model="formData.password" name="password" type="password" class="form-control input-menu" placeholder="Lösenord"/>
+            <p><button class="btn btn-lg btn-primary btn-menu" ng-click="submitLogin()">Logga in</button>
+            </p>
+        </form>
+    </div>
+</div>

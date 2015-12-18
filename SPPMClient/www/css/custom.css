@@ -1,0 +1,25 @@
+﻿body {
+}
+
+.btn-menu {
+    width: 80%;
+}
+
+.pingpong-menu {
+    text-align: center;
+}
+
+.input-menu {
+    width: 80%;
+    display: inline-block;
+    margin: 2%
+}
+
+.btn-login {
+    float: right;
+    margin-right: 10%
+}
+
+.singleMatchTable td {
+    text-align: center
+}

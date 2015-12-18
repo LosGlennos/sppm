@@ -1,0 +1,18 @@
+﻿<div ng-controller="CreateAccountCtrl">
+    <div class="jumbotron pingpong-menu">
+        <p>Lägg till en ny spelare</p>
+        <form name="form" novalidate>
+            <div class="form-group">
+                <input name="username" ng-model="createUsernameInput" type="text" class="form-control input-menu" placeholder="Användarnamn" ng-pattern="/^[a-zA-Z0-9 ]{1,50}$/"/>
+                <span>{{ usernameMessage }}</span>
+            </div>
+            <p><a ng-click="createAccount(form)" class="btn btn-lg btn-primary btn-menu">Lägg till spelare</a>
+            </p>
+        </form>
+    </div>
+    <div ng-show="form.username.$invalid">
+        <div class="alert alert-danger">Användarnamnet ogiltigt, mellan 5 och 15 tecken och inga konstigheter</div>
+    </div>
+    <div ng-show="form.$$success.userCreated" class="alert alert-success text-center">Ny användare har lagts till!</div>
+    <div ng-show="form.$error.userCreated" class="alert alert-danger text-center">{{ errormessage }}</div>
+</div>
