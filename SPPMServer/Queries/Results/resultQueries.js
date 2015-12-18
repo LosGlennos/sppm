@@ -1,4 +1,6 @@
-﻿module.exports = {
+﻿//Refactor!!
+ 
+module.exports = {
     registerSingleMatchResult: function(User, result, res) {
         User.findOne({ username_lower: result.winner }, function (findWinnerError, winningUser) {
             
