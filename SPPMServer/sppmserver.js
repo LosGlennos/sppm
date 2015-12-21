@@ -45,6 +45,24 @@ app.post('/postKnockoutPlacings', function (req, res) {
 	resultQueries.registerKnockoutPlacings(User, result, res);
 });
 
+app.post('/resetStandings', function (req, res) {
+    var User = mongoose.model('User', dbSchemas.userSchema);
+
+    User.find({}, function (err, users) {
+        count = 1;
+        users.forEach(function (user) {
+            user.points = 0;
+            user.placing = count;
+            count++;
+            user.save(function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        });
+    });
+});
+
 app.post('/addNewPlayer', function (req, res) {
     var credentials = req.body;
 
