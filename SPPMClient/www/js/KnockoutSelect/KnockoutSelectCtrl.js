@@ -27,9 +27,9 @@
             var placingsMap = {};
             var placing = 1;
 
-            idSelectedPlayers.forEach(function (idSelectedPlayer) {
+            idSelectedPlayers.forEach(function (username) {
                 var knockoutPlacings = {
-                    id: idSelectedPlayer,
+                    username: username,
                     placing: placing
                 }
                 placingsMap['placing' + placing] = knockoutPlacings;
@@ -41,6 +41,13 @@
                     if (result.success == false) {
                         $location.path('/');
                     }
+                });
+        }
+
+        $scope.resetStandings = function () {
+            _knockoutServices.resetStandings()
+                .success(function () {
+                    $location.reload();
                 });
         }
     }

@@ -4,4 +4,8 @@
     this.postKnockoutPlacings = function(params) {
         return httpService.post('postKnockoutPlacings', params);
     }
+
+    this.resetStandings = function () {
+        return httpService.post('resetStandings');
+    }
 }
