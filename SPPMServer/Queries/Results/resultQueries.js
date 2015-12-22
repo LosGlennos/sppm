@@ -29,7 +29,7 @@ module.exports = {
 										}
 
 										if (movingIndex === movingUsersArray.length - 1) {
-											movingUsers.forEach(function(savingUser, savingIndex, savingArray) {
+										    movingUsers.forEach(function(savingUser, savingIndex, savingArray) {
 										        savingUser.save(function(saveErr) {
 										            if (saveErr) {
 										                promise(false);
@@ -55,85 +55,49 @@ module.exports = {
 		var secondPlace = result.placing2;
 
 		User.find({}, null, { sort: { 'placing': 1 } }, function (err, users) {
-            var count = 1;
-            users.forEach(function (user, idx, userArray) {
+		    users.forEach(function(user) {
 				if (user.username === firstPlace.username) {
-					user.points = user.points + 2;
+				    user.points = user.points + 2;
 				} else if (user.username === secondPlace.username) {
 				    user.points = user.points + 1;
 				}
+			});
 
-                if (user.placing !== 1 && user.points >= 5) {
-                    users.forEach(function (userToBeMoved) {
-                        if (userToBeMoved.placing === user.placing - 1) {
-                            userToBeMoved.placing = userToBeMoved.placing + 1;
-                        }
-                    });
-					user.placing = user.placing - 1;
-                    user.points = user.points - 5;
-                }
-                
-                count++;
-
-                if (idx === userArray.length - 1) {
-                    users.forEach(function (userToSave, index, userToSaveArray) {
-                        userToSave.save(function (err) {
-                            if (err) {
-                                promise(false);
-                            }
-                        });
-
-                        if (index === userToSaveArray.length - 1) {
-                            users.forEach(function (userGtFivePoints, theIndex, arrayOfDoom) {
-                                if (userGtFivePoints.points >= 5 && userGtFivePoints.placing != 1) {
-                                    User.findOne({ placing: userGtFivePoints.placing - 1 }, function (err, firstUserToBeMoved) {
-                                        firstUserToBeMoved.placing = firstUserToBeMoved.placing + 1;
-                                        firstUserToBeMoved.save(function (firstUserToBeSavedError) {
-                                            if (firstUserToBeSavedError) {
-                                                console.log(firstUserToBeSavedError);
-                                            } else if (userGtFivePoints.points >= 10 && userGtFivePoints.placing > 2) {
-                                                User.findOne({ placing: userGtFivePoints.placing - 2 }, function (err, secondUserToBeMoved) {
-                                                    secondUserToBeMoved.placing = secondUserToBeMoved.placing + 1;
-                                                    secondUserToBeMoved.save(function (secondUserToBeMovedError) {
-                                                        if (secondUserToBeMovedError) {
-                                                            console.log(secondUserToBeMovedError);
-                                                        } else {
-                                                            userGtFivePoints.points = userGtFivePoints.points - 10;
-                                                            userGtFivePoints.placing = userGtFivePoints.placing - 2;
-                                                            userGtFivePoints.save(function (userGtFivePointsError) {
-                                                                if (userGtFivePointsError) {
-                                                                    console.log(userGtFivePointsError);
-                                                                    promise(false);
-                                                                } else {
-                                                                    promise(true);
-                                                                }
-                                                            });
-                                                        }
-                                                    });
-                                                });
-                                            } else {
-                                                userGtFivePoints.points = userGtFivePoints.points - 5;
-                                                userGtFivePoints.placing = userGtFivePoints.placing - 1;
-                                                userGtFivePoints.save(function (userGtFivePointsError) {
-                                                    if (userGtFivePointsError) {
-                                                        console.log(userGtFivePointsError);
-                                                        promise(false);
-                                                    } else { 
-                                                        promise(true);
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    });
-                                }
-                                if (theIndex === arrayOfDoom.length - 1) {
-                                    promise(true);
-                                }
-                            });
-                        }
-                    });
-                }
-            });
+		    moveUserIfNecessary(users, promise);
 		});
-    }
+	}
+}
+
+var moveUserIfNecessary = function (users, promise) {
+	var userWasMoved = false;
+	users.forEach(function (user, index, userArray) {
+		if (user.points >= 5 && user.placing !== 1) {
+			user.placing = user.placing - 1;
+			user.points = user.points - 5;
+			users[index - 1].placing = users[index - 1].placing + 1;
+			userWasMoved = true;
+		}
+		
+		users = users.sort(function (a, b) { return a.placing - b.placing });
+		
+		if (index === userArray.length - 1) {
+			if (userWasMoved) {
+				moveUserIfNecessary(users, promise);
+			} else {
+				saveUsers(users, promise);
+			}
+		}
+	});
+}
+
+var saveUsers = function(users, promise) {
+	users.forEach(function (user, index, userArray) {
+		user.save(function (err) {
+			if (err) {
+				console.log(err);
+			} else if (userArray[index + 1] == null) {
+			    promise(true);
+			}
+		});
+	});
 }
