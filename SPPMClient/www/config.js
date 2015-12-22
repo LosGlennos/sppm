@@ -1,4 +1,4 @@
 ﻿var serverConfiguration = {
-    serverhost: '192.168.10.196',
+    serverhost: '10.1.1.183',
     serverport: '3000'
 }

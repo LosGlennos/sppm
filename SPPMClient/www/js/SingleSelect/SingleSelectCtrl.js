@@ -1,8 +1,9 @@
 ﻿app.controller('SingleSelectCtrl', [
     '$scope', '$location', '$http', 'sharedProperties', function ($scope, $location, $http, sharedProperties) {
         var generalServices = new GeneralServices($http);
+        $scope.opponents = [];
 
-        generalServices.getAllButCurrentUser(sharedProperties.getLoggedInUser())
+        generalServices.getAllPlayers()
             .success(function (result) {
                 if (result.success == false) {
                     $location.path('/');
@@ -11,18 +12,19 @@
                 }
             });
 
-        $scope.username = "";
-
         $scope.setSelected = function(username) {
-            if ($scope.username == username) {
-                $scope.username = "";
+            if ($scope.opponents.indexOf(username) > -1) {
+                $scope.opponents.splice($scope.opponents.indexOf(username), 1);
             } else {
-                $scope.username = username;
+                if ($scope.opponents.length === 2) {
+                    $scope.opponents.splice(0, 1);
+                }
+                $scope.opponents.push(username);
             }
         };
 
         $scope.startGame = function() {
-            sharedProperties.setSingleMatchOpponent($scope.username);
+            sharedProperties.setSingleMatchOpponents($scope.opponents);
             $location.path('/singlematch');
         };
     }
