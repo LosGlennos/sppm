@@ -1,5 +1,5 @@
 ﻿app.controller('KnockoutSelectCtrl', [
-    '$scope', '$location', '$http', function ($scope, $location, $http) {
+    '$scope', '$location', '$http', '$route', function ($scope, $location, $http, $route) {
         var _generalServices = new GeneralServices($http);
         var _knockoutServices = new KnockoutService($http);
 
@@ -39,7 +39,9 @@
             _knockoutServices.postKnockoutPlacings(placingsMap)
                 .success(function(result) {
                     if (result.success == false) {
-                        $location.path('/');
+                        //Handle error
+                    } else {
+                        $route.reload();
                     }
                 });
         }

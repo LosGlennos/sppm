@@ -42,7 +42,11 @@ app.post('/postKnockoutPlacings', function (req, res) {
 	var result = req.body;
 	var User = mongoose.model('User', dbSchemas.userSchema);
 
-	resultQueries.registerKnockoutPlacings(User, result, res);
+    var updateSuccessful = resultQueries.registerKnockoutPlacings(User, result, function (success) {
+        res.send({
+            success: success
+        });
+    });
 });
 
 app.post('/resetStandings', function (req, res) {
