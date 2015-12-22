@@ -1,5 +1,5 @@
 ﻿app.controller('KnockoutSelectCtrl', [
-    '$scope', '$location', '$http', function ($scope, $location, $http) {
+    '$scope', '$location', '$http', '$route', function ($scope, $location, $http, $route) {
         var _generalServices = new GeneralServices($http);
         var _knockoutServices = new KnockoutService($http);
 
@@ -27,9 +27,9 @@
             var placingsMap = {};
             var placing = 1;
 
-            idSelectedPlayers.forEach(function (idSelectedPlayer) {
+            idSelectedPlayers.forEach(function (username) {
                 var knockoutPlacings = {
-                    id: idSelectedPlayer,
+                    username: username,
                     placing: placing
                 }
                 placingsMap['placing' + placing] = knockoutPlacings;
@@ -39,8 +39,17 @@
             _knockoutServices.postKnockoutPlacings(placingsMap)
                 .success(function(result) {
                     if (result.success == false) {
-                        $location.path('/');
+                        //Handle error
+                    } else {
+                        $route.reload();
                     }
+                });
+        }
+
+        $scope.resetStandings = function () {
+            _knockoutServices.resetStandings()
+                .success(function () {
+                    $location.reload();
                 });
         }
     }

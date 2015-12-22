@@ -42,7 +42,29 @@ app.post('/postKnockoutPlacings', function (req, res) {
 	var result = req.body;
 	var User = mongoose.model('User', dbSchemas.userSchema);
 
-	resultQueries.registerKnockoutPlacings(User, result, res);
+    var updateSuccessful = resultQueries.registerKnockoutPlacings(User, result, function (success) {
+        res.send({
+            success: success
+        });
+    });
+});
+
+app.post('/resetStandings', function (req, res) {
+    var User = mongoose.model('User', dbSchemas.userSchema);
+
+    User.find({}, function (err, users) {
+        count = 1;
+        users.forEach(function (user) {
+            user.points = 0;
+            user.placing = count;
+            count++;
+            user.save(function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        });
+    });
 });
 
 app.post('/addNewPlayer', function (req, res) {
