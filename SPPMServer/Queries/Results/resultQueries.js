@@ -7,7 +7,7 @@ module.exports = {
         });
     },
 
-    registerKnockoutPlacings: function (User, result, res) {
+    registerKnockoutPlacings: function (User, result, promise) {
         var firstPlace = result.placing1;
 		var secondPlace = result.placing2;
 
@@ -37,12 +37,12 @@ module.exports = {
                     users.forEach(function (userToSave, index, userToSaveArray) {
                         userToSave.save(function (err) {
                             if (err) {
-                                console.log(err);
+                                promise(false);
                             }
                         });
 
                         if (index === userToSaveArray.length - 1) {
-                            users.forEach(function (userGtFivePoints) {
+                            users.forEach(function (userGtFivePoints, theIndex, arrayOfDoom) {
                                 if (userGtFivePoints.points >= 5 && userGtFivePoints.placing != 1) {
                                     User.findOne({ placing: userGtFivePoints.placing - 1 }, function (err, firstUserToBeMoved) {
                                         firstUserToBeMoved.placing = firstUserToBeMoved.placing + 1;
@@ -61,6 +61,9 @@ module.exports = {
                                                             userGtFivePoints.save(function (userGtFivePointsError) {
                                                                 if (userGtFivePointsError) {
                                                                     console.log(userGtFivePointsError);
+                                                                    promise(false);
+                                                                } else {
+                                                                    promise(true);
                                                                 }
                                                             });
                                                         }
@@ -70,13 +73,19 @@ module.exports = {
                                                 userGtFivePoints.points = userGtFivePoints.points - 5;
                                                 userGtFivePoints.placing = userGtFivePoints.placing - 1;
                                                 userGtFivePoints.save(function (userGtFivePointsError) {
-                                                    if (userGtFivePointsError) { 
+                                                    if (userGtFivePointsError) {
                                                         console.log(userGtFivePointsError);
-                                                    }   
+                                                        promise(false);
+                                                    } else { 
+                                                        promise(true);
+                                                    }
                                                 });
                                             }
                                         });
                                     });
+                                }
+                                if (theIndex === arrayOfDoom.length - 1) {
+                                    promise(true);
                                 }
                             });
                         }
