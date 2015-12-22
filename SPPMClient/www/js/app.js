@@ -34,4 +34,15 @@
                 redirectTo: '/'
             });
         }
-    )
+    ).service('sharedProperties', function () {
+        var opponents = [];
+
+        return {
+            getSingleMatchOpponents: function () {
+                return opponents;
+            },
+            setSingleMatchOpponents: function (value) {
+                opponents = value;
+            }
+        }
+    });

@@ -35,7 +35,11 @@ app.post('/registerSingleMatchResult', function (req, res) {
     var result = { winner: req.body.winner.toLowerCase(), loser: req.body.loser.toLowerCase() };
 	var User = mongoose.model('User', dbSchemas.userSchema);
 
-    resultQueries.registerSingleMatchResult(User, result, res);
+    resultQueries.registerSingleMatchResult(User, result, function(success) {
+        res.send({
+            success: success
+        });
+    });
 });
 
 app.post('/postKnockoutPlacings', function (req, res) {

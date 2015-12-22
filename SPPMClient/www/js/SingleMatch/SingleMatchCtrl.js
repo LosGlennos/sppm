@@ -1,8 +1,7 @@
 ﻿app.controller('SingleMatchCtrl', [
     '$scope', '$location', '$http', 'sharedProperties',
     function ($scope, $location, $http, sharedProperties) {
-        $scope.user = sharedProperties.getLoggedInUser();
-        $scope.opponent = sharedProperties.getSingleMatchOpponent();
+        $scope.opponents = sharedProperties.getSingleMatchOpponents();
         var singleMatchService = new SingleMatchService($http);
 
         $scope.registerResult = function() {
@@ -13,20 +12,22 @@
 
             if (userResult > opponentResult) {
                 result = {
-                    winner: sharedProperties.getLoggedInUser(),
-                    loser: sharedProperties.getSingleMatchOpponent()
+                    winner: sharedProperties.getSingleMatchOpponents()[0],
+                    loser: sharedProperties.getSingleMatchOpponents()[1]
                 }
             } else {
                 result = {
-                    winner: sharedProperties.getSingleMatchOpponent(),
-                    loser: sharedProperties.getLoggedInUser()
+                    winner: sharedProperties.getSingleMatchOpponents()[1],
+                    loser: sharedProperties.getSingleMatchOpponents()[0]
                 }
             }
             singleMatchService.registerSingleMatchResult(result)
                 .success(function (result) {
                     if (result.success == false) {
                         $location.path('/');
-                    } 
+                    } else {
+                        $location.path('/standings');
+                    }
                 });
         }
     }

@@ -1,10 +1,53 @@
 ﻿//Refactor!!
  
 module.exports = {
-    registerSingleMatchResult: function(User, result, res) {
-        User.findOne({ username_lower: result.winner }, function (findWinnerError, winningUser) {
-            
-        });
+	registerSingleMatchResult: function (User, result, promise) {
+		var winningUser;
+	    var losingUser;
+		User.find({}, function (findUsersError, users) {
+		    if (findUsersError) {
+				promise(false);
+		    } else {
+		        users.forEach(function(user, index, userArray) {
+					if (user.username_lower === result.winner) {
+						winningUser = user;
+					} else if (user.username_lower === result.loser) {
+						losingUser = user;
+					}
+
+					if (index === userArray.length - 1) {
+					    if (winningUser.placing > losingUser.placing) {
+					        User.find({}, null, { sort: { 'placing': 1 } }, function(movingUsersError, movingUsers) {
+								if (movingUsersError) {
+									promise(false);
+								} else {
+								    movingUsers.forEach(function(movingUser, movingIndex, movingUsersArray) {
+										if (movingUser.placing < winningUser.placing && movingUser.placing >= losingUser.placing) {
+										    movingUser.placing = movingUser.placing + 1;
+										} else if (movingUser.username === winningUser.username) {
+										    movingUser.placing = losingUser.placing;
+										}
+
+										if (movingIndex === movingUsersArray.length - 1) {
+											movingUsers.forEach(function(savingUser, savingIndex, savingArray) {
+										        savingUser.save(function(saveErr) {
+										            if (saveErr) {
+										                promise(false);
+													} else if (savingIndex === savingArray.length - 1) {
+										                console.log(movingUsers);
+										                promise(true);
+										            }
+										        });
+										    });
+										}
+								    });
+								}
+					        });
+					    }
+					}
+		        });
+		    }
+		});
     },
 
     registerKnockoutPlacings: function (User, result, promise) {
@@ -14,7 +57,6 @@ module.exports = {
 		User.find({}, null, { sort: { 'placing': 1 } }, function (err, users) {
             var count = 1;
             users.forEach(function (user, idx, userArray) {
-                var tempUser;
 				if (user.username === firstPlace.username) {
 					user.points = user.points + 2;
 				} else if (user.username === secondPlace.username) {
