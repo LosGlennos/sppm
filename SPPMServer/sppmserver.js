@@ -3,13 +3,14 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
 var dbSchemas = require('./database-schemas.js');
+var config = require('./config.js')
 var getPlayersQueries = require('./Queries/GetPlayers/getPlayersQueries.js');
 var accountQueries = require('./Queries/Account/accountQueries.js');
 var resultQueries = require('./Queries/Results/resultQueries.js');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost/dbSPPM');
+mongoose.connect(config.databaseURI);
 var db = mongoose.connection;
 var Schema = mongoose.Schema;
 
