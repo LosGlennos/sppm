@@ -198,3 +198,4 @@ FakesAssemblies/
 /SPPMClient/platforms
 /SPPMClient/www/res
 /SPPMServer/data
+SPPMServer/config.js
