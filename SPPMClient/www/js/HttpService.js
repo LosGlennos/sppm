@@ -1,6 +1,7 @@
 ﻿function HttpService($http) {
 
-    var serverAdress = 'http://' + serverConfiguration.serverhost + ':' + serverConfiguration.serverport + '/';
+    var serverAdress = 'http://' + serverConfiguration.serverhost;
+    serverAdress += serverConfiguration.serverport === '' ? '/' : ':' + serverConfiguration.serverport + '/';
 
     this.get = function (action, params) {
         return $http({
