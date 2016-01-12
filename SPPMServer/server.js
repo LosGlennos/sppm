@@ -14,6 +14,8 @@ mongoose.connect(config.databaseURI);
 var db = mongoose.connection;
 var Schema = mongoose.Schema;
 
+var User;
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true
@@ -27,16 +29,11 @@ app.use(function (req, res, next) {
 });
 
 app.get('/getAllPlayers', function (req, res) {
-	console.log(dbSchemas.userSchema);
-	
-	var User = mongoose.model('User', dbSchemas.userSchema);
-	
 	getPlayersQueries.getAllPlayers(User, res);
 });
 
 app.post('/registerSingleMatchResult', function (req, res) {
 	var result = { winner: req.body.winner.toLowerCase(), loser: req.body.loser.toLowerCase() };
-	var User = mongoose.model('User', dbSchemas.userSchema);
 	
 	resultQueries.registerSingleMatchResult(User, result, function (success) {
 		res.send({
@@ -47,7 +44,6 @@ app.post('/registerSingleMatchResult', function (req, res) {
 
 app.post('/postKnockoutPlacings', function (req, res) {
 	var result = req.body;
-	var User = mongoose.model('User', dbSchemas.userSchema);
 	
 	var updateSuccessful = resultQueries.registerKnockoutPlacings(User, result, function (success) {
 		res.send({
@@ -57,14 +53,9 @@ app.post('/postKnockoutPlacings', function (req, res) {
 });
 
 app.post('/resetStandings', function (req, res) {
-	var User = mongoose.model('User', dbSchemas.userSchema);
-	
 	User.find({}, function (err, users) {
-		count = 1;
 		users.forEach(function (user) {
 			user.points = 0;
-			user.placing = count;
-			count++;
 			user.save(function (err) {
 				if (err) {
 					console.log(err);
@@ -79,8 +70,6 @@ app.post('/addNewPlayer', function (req, res) {
 	
 	console.log(credentials);
 	
-	var User = mongoose.model('User', dbSchemas.userSchema);
-	
 	User.count({}, function (userCountError, count) {
 		if (userCountError) {
 			console.log(userCountError);
@@ -89,7 +78,8 @@ app.post('/addNewPlayer', function (req, res) {
 				username: credentials.username,
 				username_lower: credentials.username.toLowerCase(),
 				points: 0,
-				placing: count + 1
+				placing: count + 1,
+				old_placing: count + 1
 			});
 			
 			pingPongUser.save(function (saveUserError) {
@@ -119,4 +109,5 @@ var server = app.listen(process.env.PORT || 3000, function () {
 db.on('error', console.error);
 db.once('open', function callback() {
 	dbSchemas.createDatabaseSchemas(Schema);
+	User = mongoose.model('User', dbSchemas.userSchema);
 });

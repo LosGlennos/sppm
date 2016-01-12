@@ -23,8 +23,10 @@ module.exports = {
 								} else {
 								    movingUsers.forEach(function(movingUser, movingIndex, movingUsersArray) {
 										if (movingUser.placing < winningUser.placing && movingUser.placing >= losingUser.placing) {
+										    movingUser.old_placing = movingUser.placing;
 										    movingUser.placing = movingUser.placing + 1;
 										} else if (movingUser.username === winningUser.username) {
+											movingUser.old_placing = movingUser.placing;
 										    movingUser.placing = losingUser.placing;
 										}
 
@@ -72,6 +74,7 @@ var moveUserIfNecessary = function (users, promise) {
 	var userWasMoved = false;
 	users.forEach(function (user, index, userArray) {
 		if (user.points >= 5 && user.placing !== 1) {
+		    user.old_placing = user.placing;
 			user.placing = user.placing - 1;
 			user.points = user.points - 5;
 			users[index - 1].placing = users[index - 1].placing + 1;

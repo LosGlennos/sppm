@@ -4,15 +4,16 @@
             if (err) {
                 console.log(err);
             } else {
-                var userMap = {};
+                var userMap = [];
                 users.forEach(function (user) {
                     var returnedUser = {
                         _id: user._id,
                         username: user.username,
-                        placing: user.placing,
+						placing: user.placing,
+						old_placing: user.old_placing,
                         points: user.points
                 }
-                    userMap[user._id] = returnedUser;
+                    userMap.push(returnedUser);
                 });
 
                 res.send(userMap);

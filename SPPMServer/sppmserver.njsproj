@@ -6,7 +6,7 @@
     <ProjectGuid>{e0909b7a-2c69-4f87-8bc8-8c39cdf5b7b5}</ProjectGuid>
     <ProjectHome />
     <ProjectView>ShowAllFiles</ProjectView>
-    <StartupFile>sppmserver.js</StartupFile>
+    <StartupFile>server.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
@@ -19,7 +19,7 @@
     <Content Include="package.json" />
     <Compile Include="config.js" />
     <Compile Include="database-schemas.js" />
-    <Compile Include="sppmserver.js" />
+    <Compile Include="server.js" />
     <Compile Include="Queries\Account\accountQueries.js" />
     <Compile Include="Queries\GetPlayers\getPlayersQueries.js" />
     <Compile Include="Queries\Results\resultQueries.js" />

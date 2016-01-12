@@ -48,7 +48,8 @@
                             username: credentials.username,
                             username_lower: credentials.username.toLowerCase(),
                             password: credentials.password,
-                            placing: count + 1
+							placing: count + 1,
+							old_placing: count + 1
                         });
 
                         pingPongUser.save(function(saveUserError) {
