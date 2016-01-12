@@ -67,6 +67,20 @@ module.exports = {
 
 		    moveUserIfNecessary(users, promise);
 		});
+	},
+
+	registerDoubleMatchResult: function(User, result, promise) {
+	    User.find({}, null, { sort: { 'placing': 1 } }, function(err, users) {
+	        users.forEach(function(user) {
+				if (user.username == result.winner.playerOne.username || user.username == result.winner.playerTwo.username) {
+				    user.points += result.winner.points;
+				} else if (user.username == result.loser.playerOne.username || user.username == result.loser.playerTwo.username) {
+				    user.points += result.loser.points;
+				}
+			});
+
+			moveUserIfNecessary(users, promise);
+	    });
 	}
 }
 
@@ -77,6 +91,7 @@ var moveUserIfNecessary = function (users, promise) {
 		    user.old_placing = user.placing;
 			user.placing = user.placing - 1;
 			user.points = user.points - 5;
+			users[index - 1].old_placing = users[index - 1].placing;
 			users[index - 1].placing = users[index - 1].placing + 1;
 			userWasMoved = true;
 		}
@@ -87,7 +102,7 @@ var moveUserIfNecessary = function (users, promise) {
 			if (userWasMoved) {
 				moveUserIfNecessary(users, promise);
 			} else {
-				saveUsers(users, promise);
+			    saveUsers(users, promise);
 			}
 		}
 	});

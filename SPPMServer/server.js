@@ -42,6 +42,16 @@ app.post('/registerSingleMatchResult', function (req, res) {
 	});
 });
 
+app.post('/registerDoubleMatchResult', function(req, res) {
+	var result = { winner: req.body.winner, loser: req.body.loser }
+
+    resultQueries.registerDoubleMatchResult(User, result, function(success) {
+        res.send({
+            success: success
+        });
+    });
+});
+
 app.post('/postKnockoutPlacings', function (req, res) {
 	var result = req.body;
 	

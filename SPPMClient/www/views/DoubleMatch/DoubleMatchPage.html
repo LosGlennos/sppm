@@ -1,0 +1,27 @@
+﻿<div class="jumbotron container">
+    <div class="pingpong-menu">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-2">
+                <span>{{ opponents.firstTeam.playerOne.username }} & {{ opponents.firstTeam.playerTwo.username }}</span>
+            </div>
+            <div class="col-md-2">vs.</div>
+            <div class="col-md-3">
+                <span>{{ opponents.secondTeam.playerOne.username }} & {{ opponents.secondTeam.playerTwo.username }}</span>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+            <div class="col-md-3 col-md-offset-2">
+                <input type="text" ng-model="userResult" class="form-control text-center" />
+            </div>
+            <div class="col-md-2">-</div>
+            <div class="col-md-3">
+                <input type="text" ng-model="opponentResult" class="form-control text-center" />
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="pingpong-menu" style="margin-top: 30px">
+        <a ng-disabled='userResult == undefined || opponentResult == undefined || userResult == "" || opponentResult == "" || opponentResult == userResult' ng-click="registerResult()" class="btn btn-menu btn-lg btn-primary">Uppdatera ställningen</a>
+    </div>
+
+</div>
