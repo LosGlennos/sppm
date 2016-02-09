@@ -1,12 +1,11 @@
 {
   "name": "sppmclient",
   "version": "1.0.0",
-  "dependencies": {},
-  "repository": {},
-  "devDependencies": {
-    "browser-sync": "^2.11.1",
-    "gulp": "^3.9.1"
+  "dependencies": {
+    "browser-sync": "^2.10.1"
   },
+  "repository": {},
+  "devDependencies": {},
   "engines": {},
   "scripts": {}
 }
