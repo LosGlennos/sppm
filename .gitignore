@@ -200,3 +200,4 @@ FakesAssemblies/
 /SPPMServer/data
 SPPMServer/config.js
 SPPMClient/www/config.js
+SPPMServer/config.js
