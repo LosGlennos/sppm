@@ -7,6 +7,7 @@ var config = require('./config.js')
 var getPlayersQueries = require('./Queries/GetPlayers/getPlayersQueries.js');
 var accountQueries = require('./Queries/Account/accountQueries.js');
 var resultQueries = require('./Queries/Results/resultQueries.js');
+var fridayFinalDb = require('./Queries/FridayFinals/fridayFinalDb.js');
 
 var app = express();
 
@@ -15,6 +16,7 @@ var db = mongoose.connection;
 var Schema = mongoose.Schema;
 
 var User;
+var Finals;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -30,6 +32,12 @@ app.use(function (req, res, next) {
 
 app.get('/getAllPlayers', function (req, res) {
 	getPlayersQueries.getAllPlayers(User, res);
+});
+
+app.get('/fridayFinalsMatches', function(req, res) {
+    fridayFinalDb.getMatches(Finals, function(matches) {
+		res.send({ matches: matches });
+    });
 });
 
 app.post('/registerSingleMatchResult', function (req, res) {
@@ -48,6 +56,18 @@ app.post('/registerDoubleMatchResult', function(req, res) {
     resultQueries.registerDoubleMatchResult(User, result, function(success) {
         res.send({
             success: success
+        });
+    });
+});
+
+app.post('/postQualifications', function(req, res) {
+	var result = req.body;
+	var qualified = result.qualified;
+	var qualification = result.qualification;
+
+    fridayFinalDb.seedMatches(Finals, qualification, qualified, function(success) {
+        res.send({
+			success: success
         });
     });
 });
@@ -120,4 +140,5 @@ db.on('error', console.error);
 db.once('open', function callback() {
 	dbSchemas.createDatabaseSchemas(Schema);
 	User = mongoose.model('User', dbSchemas.userSchema);
+    Finals = mongoose.model('Finals', dbSchemas.fridayFinalsSchema);
 });

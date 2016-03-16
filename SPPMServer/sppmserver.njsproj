@@ -19,12 +19,14 @@
     <Content Include="package.json" />
     <Compile Include="config.js" />
     <Compile Include="database-schemas.js" />
+    <Compile Include="Queries\FridayFinals\fridayFinalDb.js" />
     <Compile Include="server.js" />
     <Compile Include="Queries\Account\accountQueries.js" />
     <Compile Include="Queries\GetPlayers\getPlayersQueries.js" />
     <Compile Include="Queries\Results\resultQueries.js" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Queries\FridayFinals\" />
     <Folder Include="_tmp" />
     <Folder Include="build" />
     <Folder Include="data" />

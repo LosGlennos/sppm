@@ -31,16 +31,7 @@ module.exports = {
 										}
 
 										if (movingIndex === movingUsersArray.length - 1) {
-										    movingUsers.forEach(function(savingUser, savingIndex, savingArray) {
-										        savingUser.save(function(saveErr) {
-										            if (saveErr) {
-										                promise(false);
-													} else if (savingIndex === savingArray.length - 1) {
-										                console.log(movingUsers);
-										                promise(true);
-										            }
-										        });
-										    });
+										    moveUserIfNecessary(movingUsers, promise);
 										}
 								    });
 								}

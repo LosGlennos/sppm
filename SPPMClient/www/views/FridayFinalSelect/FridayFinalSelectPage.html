@@ -1,0 +1,21 @@
+﻿<div>
+    <div class="" ng-model="knockoutSelectList">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Spelare</th>
+                <th>Poäng</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng:repeat="player in players" ng-click="setSelected(player)" ng-class="{success: idSelectedPlayers.indexOf(player) > -1}" data-id="{{player._id}}">
+                <td>{{player.username}}</td>
+                <td>{{player.points}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="pingpong-menu">
+            <p><a class="btn btn-lg btn-primary btn-menu" ng-click="startFinals(idSelectedPlayers)">Starta fredagsfinal!</a></p>
+        </div>
+    </div>
+</div>

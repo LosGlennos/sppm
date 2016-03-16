@@ -32,7 +32,10 @@
                 result.loser.points = 1;
             }
 
-            _doubleMatchService.registerDoubleMatchResult(result);
+            _doubleMatchService.registerDoubleMatchResult(result)
+                .success(function () {
+                    $location.path('/standings');
+                });
         }
     }
 ]);

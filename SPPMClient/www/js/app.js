@@ -38,6 +38,14 @@
                 templateUrl: 'views/DoubleMatch/DoubleMatchPage.html',
                 controller: 'DoubleMatchCtrl'
             })
+            .when('/fridayfinalselect', {
+                templateUrl: 'views/FridayFinalSelect/FridayFinalSelectPage.html',
+                controller: 'FridayFinalSelectCtrl'
+            })
+            .when('/fridayfinals', {
+                templateUrl: 'views/FridayFinals/FridayFinalsPage.html',
+                controller: 'FridayFinalsCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });
