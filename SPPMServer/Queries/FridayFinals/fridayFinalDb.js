@@ -4,7 +4,7 @@
 		var numberOfRounds = Math.floor(Math.sqrt(numberOfPlayers));
 		var numberOfCompleteRounds = Math.pow(2, numberOfRounds);
 	    var matches = [];
-		for (var i = 0; i < qualification.length / 2; i++) {
+		for (var i = 0; i < qualification.length; i += 2) {
 		    var qualificationRound = new Finals({
 		        player_one: qualification[i].username,
 		        player_one_seed: qualified.length + 1 + i,

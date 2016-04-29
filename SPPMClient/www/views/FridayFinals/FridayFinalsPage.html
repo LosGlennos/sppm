@@ -1,10 +1,23 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-	<meta charset="utf-8" />
-</head>
-<body>
-
-</body>
-</html>
+﻿<uib-tabset active="active">
+    <uib-tab ng-if="qualification.length > 0" index="0" heading="Qual">
+        <div>
+            <div ng-repeat="qual in qualification" class="panel panel-default panel-primary" style="margin: 10px">
+                <div class="panel-heading clearfix">Game<a class="btn btn-xs btn-success pull-right"><span>Register</span></a>
+                </div>
+                <div class="panel-body">
+                    {{qual.player_one}} vs. {{qual.player_two}}
+                </div>
+            </div>
+        </div>
+    </uib-tab>
+    <uib-tab index="$index + 1" ng-repeat="i in getRounds(qualified.rounds) track by $index" heading="{{roundNames[$index]}}">
+        <div ng-repeat="match in matchesPerRound[$index]" class="panel panel-default panel-primary" style="margin: 10px">
+            <div class="panel-heading clearfix">
+                Game<a class="btn btn-xs btn-success pull-right"><span>Register</span></a>
+            </div>
+            <div class="panel-body">
+                {{match.player_one}} vs. {{match.player_two}}
+            </div>
+        </div>
+    </uib-tab>
+</uib-tabset>

@@ -27,9 +27,10 @@
         <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
-        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.css"/>
+        <link rel="stylesheet" href="libs/angular-bootstrap/ui-bootstrap-csp.css"/>
         <link rel="stylesheet" href="css/custom.css"/>
-        <link rel="stylesheet" href="css/font-awesome/font-awesome.min.css"/>
+        <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.css"/>
         <title>Spinit Ping Pong Mania</title>
     </head>
     <body ng-app="spinitPingPongMania" ng-controller="IndexCtrl">
@@ -61,13 +62,14 @@
             <div ng-view=""></div>
         </div>
 
-        <script type="text/javascript" src="js/lib/jquery/jquery-2.1.4.min.js"></script>
-        <script type="text/javascript" src="js/lib/bootstrap/bootstrap.min.js"></script>
-        <!--<script type="text/javascript" src="cordova.js"></script>-->
+        <script type="text/javascript" src="libs/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/cordovaInit.js"></script>
-        <script type="text/javascript" src="js/lib/angular/angular.min.js"></script>
-        <script type="text/javascript" src="js/lib/angular/angular-route.min.js"></script>
-        <script type="text/javascript" src="js/lib/angular/angular-cookies.min.js"></script>
+        <script type="text/javascript" src="libs/angular/angular.min.js"></script>
+        <script type="text/javascript" src="libs/angular-route/angular-route.min.js"></script>
+        <script type="text/javascript" src="libs/angular-cookies/angular-cookies.min.js"></script>
+        <script type="text/javascript" src="libs/angular-bootstrap/ui-bootstrap.js"></script>
+        <script type="text/javascript" src="libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
         <script type="text/javascript" src="js/app.js"></script>
 

@@ -16,5 +16,11 @@
     "test",
     "tests"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "angular-bootstrap": "^1.3.2",
+    "bootstrap": "^3.3.6",
+    "font-awesome": "^4.6.1",
+    "angular-cookies": "^1.5.5",
+    "angular-route": "^1.5.5"
+  }
 }

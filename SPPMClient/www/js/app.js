@@ -1,5 +1,5 @@
 ﻿var app = angular
-    .module("spinitPingPongMania", ['ngRoute', 'ngCookies'])
+    .module("spinitPingPongMania", ['ngRoute', 'ngCookies', 'ui.bootstrap'])
     .config(function($routeProvider) {
         $routeProvider
             .when('/', {
